@@ -56,8 +56,8 @@ app.listen(3000, () => {
 
 // On the home page (get "/"), users should see:
 //"99 Bottles of beer on the wall"
-app.get("/number_of_bottles/:98", (request,response)=>{}
-)
+// app.get("/number_of_bottles/:98", (request,response)=>{}
+// )
     // a link that says "take one down, pass it around"
  
 
@@ -71,3 +71,23 @@ app.get("/number_of_bottles/:98", (request,response)=>{}
 // where the href is number of bottles in the parameter minus 1.
 
 
+
+app.get('/', (req, res) => {
+    res.send(`<p>99 Bottles of the beer on the wall</p>
+          <a href="http://localhost:3000/98">take one down, pass it around</a>
+      `);
+  });
+  
+  app.get('/:number_of_bottles', (req, res) => {
+    if (req.params.number_of_bottles == 0) {
+      res.send(`<a href="http://localhost:3000/">Start Over!</a>`);
+    } else {
+      res.send(`<p>${
+        req.params.number_of_bottles
+      } Bottles of the beer on the wall</p>
+                <a href="http://localhost:3000/${
+                  req.params.number_of_bottles - 1
+                }">take one down, pass it around</a>
+            `);
+    }
+  });
